@@ -23,8 +23,20 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'cadastrar',
+        name: 'register',
         component: () => import('@/views/Register.vue')
+      }
+    ],
+  },
+  {
+    path: '/verificar-email',
+    component: () => import('@/layouts/Auth.vue'),
+    beforeEnter: redirectIfAuthenticated,
+    children: [
+      {
+        path: '',
+        name: 'verifyEmail',
+        component: () => import('@/views/VerifyEmail.vue')
       }
     ],
   },

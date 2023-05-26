@@ -31,12 +31,22 @@ const routes = [
   {
     path: '/verificar-email',
     component: () => import('@/layouts/Auth.vue'),
-    beforeEnter: redirectIfAuthenticated,
     children: [
       {
         path: '',
         name: 'verifyEmail',
         component: () => import('@/views/VerifyEmail.vue')
+      }
+    ],
+  },
+  {
+    path: '/esqueci-senha',
+    component: () => import('@/layouts/Auth.vue'),
+    children: [
+      {
+        path: '',
+        name: 'forgotPassword',
+        component: () => import('@/views/ForgotPassword.vue')
       }
     ],
   },

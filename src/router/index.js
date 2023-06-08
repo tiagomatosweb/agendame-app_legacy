@@ -53,7 +53,7 @@ const routes = [
   {
     path: '/',
     component: () => import('@/layouts/Dashboard.vue'),
-    beforeEnter: auth,
+    // beforeEnter: auth,
     children: [
       {
         path: '',

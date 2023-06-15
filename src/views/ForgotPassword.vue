@@ -9,15 +9,13 @@
                 <Logo />
               </div>
 
-              <div class="text-body-1 text-muted text-center mb-3">Your Social Campaigns</div>
-
               <v-row
                 v-if="state === 'forgotPassword'"
                 class="d-flex mb-3"
               >
                 <v-col cols="12">
                   <v-label class="font-weight-bold mb-1">E-mail</v-label>
-                  <v-text-field variant="outlined" type="email" hide-details color="primary"></v-text-field>
+                  <v-text-field v-model="email" variant="outlined" type="email" hide-details color="primary"></v-text-field>
                 </v-col>
 
                 <v-col cols="12" >
@@ -31,12 +29,12 @@
               >
                 <v-col cols="12">
                   <v-label class="font-weight-bold mb-1">Token</v-label>
-                  <v-text-field variant="outlined" type="text" hide-details color="primary"></v-text-field>
+                  <v-text-field v-model="token" variant="outlined" type="text" hide-details color="primary"></v-text-field>
                 </v-col>
 
                 <v-col cols="12">
                   <v-label class="font-weight-bold mb-1">Nova senha</v-label>
-                  <v-text-field variant="outlined" type="text" hide-details color="primary"></v-text-field>
+                  <v-text-field v-model="password" variant="outlined" type="password" hide-details color="primary"></v-text-field>
                 </v-col>
 
                 <v-col cols="12" >

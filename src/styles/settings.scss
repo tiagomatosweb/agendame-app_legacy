@@ -5,6 +5,11 @@
  */
 
 // https://vuetifyjs.com/features/sass-variables/`
-// @use 'vuetify/settings' with (
-//   $color-pack: false
-// );
+// Sass
+ @forward 'vuetify/settings' with (
+   $color-pack: false,
+   $body-font-family: 'Plus Jakarta Sans',
+   $font-size-root: 1rem,
+   $label-font-size: 0.875rem,
+   $list-item-icon-margin-end: 0,
+ );

@@ -12,25 +12,25 @@
               <v-row class="d-flex mb-3">
                 <v-col cols="12">
                   <v-label class="font-weight-bold mb-1">E-mail</v-label>
-                  <v-text-field variant="outlined" hide-details color="primary"></v-text-field>
+                  <v-text-field v-model="email" variant="outlined" hide-details color="primary"></v-text-field>
                 </v-col>
 
                 <v-col cols="12">
                   <v-label class="font-weight-bold mb-1">Senha</v-label>
-                  <v-text-field variant="outlined" type="password"  hide-details color="primary"></v-text-field>
+                  <v-text-field v-model="password" variant="outlined" type="password"  hide-details color="primary"></v-text-field>
                 </v-col>
 
                 <v-col cols="12" class="pt-0">
                   <div class="d-flex flex-wrap align-center ml-n2">
                     <div class="ml-sm-auto">
                       <RouterLink :to="{ name: 'forgotPassword'}"
-                                  class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium">Esqueci minh senha</RouterLink>
+                                  class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium">Esqueci minha senha</RouterLink>
                     </div>
                   </div>
                 </v-col>
 
                 <v-col cols="12" class="pt-0">
-                  <v-btn to="/" color="primary" size="large" block flat>Login</v-btn>
+                  <v-btn @click="login" color="primary" size="large" block flat>Login</v-btn>
                 </v-col>
               </v-row>
 
@@ -57,8 +57,8 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 const authStore = useAuth()
 
-const email = ref('test@example.com');
-const password = ref('password');
+const email = ref('');
+const password = ref('');
 
 function login() {
   authStore.login(email.value, password.value).then(() => {

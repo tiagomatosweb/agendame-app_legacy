@@ -1,3 +1,5 @@
+import { loadFonts } from '@/plugins/webfontloader'
+loadFonts()
 import App from './App.vue'
 import './axios'
 import { createApp } from 'vue'

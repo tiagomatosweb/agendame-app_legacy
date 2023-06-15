@@ -1,3 +1,5 @@
+@use '../../styles/settings';
+
 /*This is for the logo*/
 .leftSidebar {
     box-shadow: none !important;
@@ -40,7 +42,7 @@
     /*General Menu css*/
     .v-list-group__items .v-list-item,
     .v-list-item {
-        border-radius: $border-radius-root + 4;
+        border-radius: settings.$border-radius-root + 4;
         padding-inline-start: calc(12px + var(--indent-padding) / 10) !important;
 
         margin: 0 0 2px;

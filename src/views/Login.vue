@@ -21,11 +21,9 @@
                 </v-col>
 
                 <v-col cols="12" class="pt-0">
-                  <div class="d-flex flex-wrap align-center ml-n2">
-                    <div class="ml-sm-auto">
+                  <div class="text-right">
                       <RouterLink :to="{ name: 'forgotPassword'}"
                                   class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium">Esqueci minha senha</RouterLink>
-                    </div>
                   </div>
                 </v-col>
 

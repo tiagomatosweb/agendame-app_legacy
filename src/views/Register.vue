@@ -9,30 +9,68 @@
                 <Logo />
               </div>
 
-              <v-row class="d-flex mb-3">
-                <v-col cols="12">
-                  <v-label class="font-weight-bold mb-1">Primeiro nome</v-label>
-                  <v-text-field v-model="firstName" variant="outlined" hide-details color="primary"></v-text-field>
-                </v-col>
+              <v-alert
+                  v-if="errorMessage"
+                  type="error"
+                  :text="errorMessage"
+                  :icon="false"
+                  class="mb-3"
+              />
+                <form @submit="submit">
+                  <v-row class="d-flex mb-3">
+                    <v-col cols="12">
+                      <v-label class="font-weight-bold mb-1">Primeiro nome</v-label>
+                      <v-text-field
+                              v-model="firstName"
+                              variant="outlined"
+                              :hide-details="!errors.first_name"
+                              :error-messages="errors.first_name"
+                              color="primary"></v-text-field>
+                    </v-col>
 
-                <v-col cols="12">
-                  <v-label class="font-weight-bold mb-1">Sobrenome</v-label>
-                  <v-text-field v-model="lastName" variant="outlined" hide-details color="primary"></v-text-field>
-                </v-col>
+                    <v-col cols="12">
+                      <v-label class="font-weight-bold mb-1">Sobrenome</v-label>
+                      <v-text-field
+                              v-model="lastName"
+                              variant="outlined"
+                              color="primary"
+                              :hide-details="!errors.last_name"
+                              :error-messages="errors.last_name"
+                      ></v-text-field>
+                    </v-col>
 
-                <v-col cols="12">
-                  <v-label class="font-weight-bold mb-1">E-mail</v-label>
-                  <v-text-field v-model="email" variant="outlined" type="email" hide-details color="primary"></v-text-field>
-                </v-col>
+                    <v-col cols="12">
+                      <v-label class="font-weight-bold mb-1">E-mail</v-label>
+                      <v-text-field
+                              v-model="email"
+                              variant="outlined"
+                              type="email"
+                              color="primary"
+                              :hide-details="!errors.email"
+                              :error-messages="errors.email"
+                      ></v-text-field>
+                    </v-col>
 
-                <v-col cols="12">
-                  <v-label class="font-weight-bold mb-1">Senha</v-label>
-                  <v-text-field v-model="password" variant="outlined" type="password"  hide-details color="primary"></v-text-field>
-                </v-col>
-                <v-col cols="12" >
-                  <v-btn @click="register" color="primary" size="large" block flat>Cadastrar</v-btn>
-                </v-col>
-              </v-row>
+                    <v-col cols="12">
+                      <v-label class="font-weight-bold mb-1">Senha</v-label>
+                      <v-text-field v-model="password" variant="outlined" type="password" color="primary"
+                                    :hide-details="!errors.password"
+                                    :error-messages="errors.password"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" >
+                      <v-btn
+                              type="submit"
+                              color="primary"
+                              size="large"
+                              block
+                              flat
+                              :loading="isSubmitting"
+                              :disabled="isSubmitting"
+                      >Cadastrar</v-btn>
+                    </v-col>
+                  </v-row>
+                </form>
 
               <h6 class="text-h6 text-muted font-weight-medium d-flex justify-center align-center mt-3">
                 Já é cadastrado?
@@ -51,17 +89,39 @@
 <script setup>
 import { ref } from 'vue';
 import { useAuth } from '@/store/auth';
+import { useRouter } from 'vue-router';
 import Logo from "@/components/logo/Logo.vue";
+import messages from "@/utils/messages";
+import * as yup from 'yup'
+import { useForm, useField } from 'vee-validate'
 
-const firstName = ref('');
-const lastName = ref('');
-const email = ref('');
-const password = ref('');
+const authStore = useAuth();
+const router = useRouter();
+const errorMessage = ref(null)
 
-function register() {
-  const authStore = useAuth();
-  authStore.register(firstName.value, lastName.value, email.value, password.value)
-}
+const schema = yup.object({
+    first_name: yup.string().required().label('Primeiro nome'),
+    email: yup.string().required().email().label('E-mail'),
+    password: yup.string().required().min(8).label('Senha'),
+});
+
+const { handleSubmit, errors, isSubmitting } = useForm({
+    validationSchema: schema,
+})
+
+const submit = handleSubmit((values) => {
+    errorMessage.value = null
+    return authStore.register(values.first_name, values.last_name, values.email, values.password).then(() => {
+        router.push({ name: 'login' });
+    }).catch((e) => {
+        errorMessage.value = messages[e.response.data.error]
+    })
+})
+
+const { value: firstName } = useField('first_name');
+const { value: lastName } = useField('last_name');
+const { value: email } = useField('email');
+const { value: password } = useField('password');
 </script>
 
 

@@ -5,8 +5,11 @@ export const useSubscription = defineStore('subscription', {
   state: () => ({}),
 
   actions: {
-    subscribe() {
-      return axios.post('/api/subscribe').then(r => r.data);
+    subscribe(planId, frequency) {
+      return axios.post('/api/subscribe', {
+        plan_id: planId,
+        frequency
+      }).then(r => r.data);
     }
   }
 })

@@ -62,6 +62,21 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/planos',
+    name: 'plans',
+    component: () => import('@/views/Plans.vue'),
+  },
+  {
+    path: '/assinatura/sucesso',
+    name: 'subscriptionSuccess',
+    component: () => import('@/views/Subscription/Success.vue'),
+  },
+  {
+    path: '/assinatura/cancelado',
+    name: 'subscriptionCancel',
+    component: () => import('@/views/Subscription/Cancel.vue'),
+  },
 ];
 
 const router = createRouter({

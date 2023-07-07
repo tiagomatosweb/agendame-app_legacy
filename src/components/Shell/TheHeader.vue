@@ -41,6 +41,13 @@
       </div>
 
       <div>
+        <v-btn
+          v-if="!meStore.user.has_subscription"
+          color="primary"
+          variant="tonal"
+          :to="{ name: 'plans' }"
+        >Upgrade</v-btn>
+
         <UserDropdown />
       </div>
     </div>
@@ -51,6 +58,9 @@
 import { ref } from "vue";
 import Logo from "@/components/logo/Logo.vue";
 import UserDropdown from "@/components/UserDropdown.vue";
+import { useMe } from "@/store/me";
 
 const sidebarDrawer = ref(true);
+
+const meStore = useMe();
 </script>
